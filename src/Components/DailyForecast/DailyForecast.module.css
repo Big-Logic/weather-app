@@ -1,0 +1,47 @@
+.df__wrapper {
+  position: relative;
+  padding-top: 5rem;
+}
+
+.df__main--icon-wrapper {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 10rem;
+  height: 10rem;
+  transform: translate(-50%, -65%);
+}
+
+.df__main--icon {
+  width: 100%;
+}
+
+.df__top {
+  text-align: center;
+}
+
+.df__top--degree {
+  font-size: 7rem;
+}
+
+.df__middle {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.df__bottom {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
+
+/* .df__middle > div,
+.df__bottom > div{
+  padding: 1.5rem 0.5rem;
+} */
+
+.df__bottom > div {
+  margin: 1rem;
+}

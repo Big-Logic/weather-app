@@ -1,0 +1,32 @@
+.app__wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #6a6385;
+  height: 100vh;
+  width: 100%;
+}
+
+.app {
+  background-color: #3e365d;
+  width: 100%;
+  max-width: 100rem;
+  min-height: 55rem;
+}
+
+.grid__two--cols {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  align-items: center;
+}
+
+.grid__two--cols-6040 {
+  display: grid;
+  grid-template-columns: 70fr 30fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+.background__tin {
+  background-color: #6a6385;
+}
