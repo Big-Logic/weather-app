@@ -55,7 +55,7 @@ export const dateToHourConverter = function (secs) {
         readableHour = hour;
   }
   console.log(hour, minute);
-  return `${readableHour}:${minute} ${hour < 12 ? 'AM' : 'PM'}`
+  return `${readableHour}:${minute < 10 ? '0'+ minute : minute} ${hour < 12 ? 'AM' : 'PM'}`
 }
 export const dateToDayConverter = function (secs) {
   const date = new Date(secs * 1000);

@@ -20,13 +20,13 @@ const DailyForecast = ({ currentWeatherData, hourlyWeatherData, timezone }) => {
           className={styles["df__main--icon"]}
         />
       </Card>
-      <Card className={styles['day__wrapper']}>
+      <Card className={styles["day__wrapper"]}>
         <p>{dateToDayConverter(currentWeatherData.dt)}</p>
       </Card>
       <Card className={styles["df__top"]}>
         <p className="font__medium">{timezone}</p>
         <p className={styles["df__top--degree"]}>
-          {typeof currentWeatherData.temp === 'number'
+          {typeof currentWeatherData.temp === "number"
             ? currentWeatherData.temp < 1
               ? "0"
               : Math.round(currentWeatherData.temp)
@@ -46,7 +46,10 @@ const DailyForecast = ({ currentWeatherData, hourlyWeatherData, timezone }) => {
         <div>
           <p className="font__sm text__align--right">
             <span className="font__sm">Feels Like </span>
-            {typeof currentWeatherData["feels_like"] === 'number' ? Math.round(currentWeatherData['feels_like']) : Math.round(currentWeatherData['feels_like'].day) }°C
+            {typeof currentWeatherData["feels_like"] === "number"
+              ? Math.round(currentWeatherData["feels_like"])
+              : Math.round(currentWeatherData["feels_like"].day)}
+            °C
           </p>
         </div>
         <div>
@@ -76,18 +79,23 @@ const DailyForecast = ({ currentWeatherData, hourlyWeatherData, timezone }) => {
             {dateToHourConverter(currentWeatherData.sunset)}
           </p>
         </div>
-        <div>
-          <p className="font__sm">Moonrise</p>
-          <p>
-            <i class="las la-cloud-moon"></i> 9:33 PM
-          </p>
-        </div>
-        <div>
-          <p className="font__sm">Moonset</p>
-          <p>
-            <i class="las la-cloud-moon"></i> 4:32 AM
-          </p>
-        </div>
+        {currentWeatherData.moonrise !== undefined && (
+          <div>
+            <p className="font__sm">Moonrise</p>
+            <p>
+              <i class="las la-cloud-moon"></i>{" "}
+              {dateToHourConverter(currentWeatherData.moonrise)}
+            </p>
+          </div>
+        )}
+        {currentWeatherData.moonset !== undefined && (
+          <div>
+            <p className="font__sm">Moonset</p>
+            <p>
+              <i class="las la-cloud-moon"></i> {dateToHourConverter(currentWeatherData.moonset)}
+            </p>
+          </div>
+        )}
       </Card>
       <Card className={styles["hw__wrapper"]}>
         <HourlyForecast hourlyWeatherData={hourlyWeatherData} />
