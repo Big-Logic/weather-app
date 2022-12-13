@@ -52,3 +52,21 @@ button {
 .las {
   font-size: 32px;
 }
+
+.img__sm {
+  width: 5rem;
+}
+
+.wd__100 {
+  width: 100%;
+}
+
+.btn__unset {
+  width: 100%;
+  display: block;
+  border: unset;
+  font: inherit;
+  background: unset;
+  color: inherit;
+  text-align: unset;
+}

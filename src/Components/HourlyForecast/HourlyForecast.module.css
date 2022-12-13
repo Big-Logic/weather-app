@@ -1,25 +1,20 @@
 .hourly__forecast--wrapper {
     background-color: #29243e;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(7, 1fr);
     gap: 1fr;
 }
 
 .hourly__forecast {
-    /* display: grid;
-    grid-template-columns: 70fr 30fr;
-    align-items: center;
-    gap: 1rem; */
-    /* background-color: #29243e; */
-    /* margin-bottom: 1rem; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
-.hourly__forecast--child {
-    display: grid;
-    grid-template-columns: 25fr 75fr;
-    align-items: center;
+.hourly__forecast p:first-child {
+    margin-bottom: 1rem;
+}
+
+.hourly__forecast p:last-child {
     margin-top: 2rem;
-}
-
-.hourly__icon--box {
 }

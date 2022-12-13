@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import Card from "../UI/Card";
 
@@ -7,22 +7,46 @@ import HourlyForecast from "../HourlyForecast/HourlyForecast";
 import styles from "./DailyForecast.module.css";
 
 import cloudy from "./cloudy.png";
+import { getIcon, dateToHourConverter, dateToDayConverter } from "../../helpers/helpers";
 
-const DailyForecast = ({ weatherData }) => {
+const DailyForecast = ({ currentWeatherData, hourlyWeatherData, timezone }) => {
+  console.log(currentWeatherData)
   return (
     <Card className={styles["df__wrapper"]}>
       <Card className={styles["df__main--icon-wrapper"]}>
-        <img src={cloudy} alt="Icon" className={styles["df__main--icon"]} />
+        <img
+          src={getIcon(currentWeatherData.weather[0].icon, "4")}
+          alt="Icon"
+          className={styles["df__main--icon"]}
+        />
+      </Card>
+      <Card className={styles['day__wrapper']}>
+        <p>{dateToDayConverter(currentWeatherData.dt)}</p>
       </Card>
       <Card className={styles["df__top"]}>
-        <p>Monrovia Liberia</p>
-        <p className={styles["df__top--degree"]}>31°C</p>
-        <p>Mostly Cloudy</p>
+        <p className="font__medium">{timezone}</p>
+        <p className={styles["df__top--degree"]}>
+          {typeof currentWeatherData.temp === 'number'
+            ? currentWeatherData.temp < 1
+              ? "0"
+              : Math.round(currentWeatherData.temp)
+            : currentWeatherData.temp.day < 1
+            ? "0"
+            : Math.round(currentWeatherData.temp.day)}
+          °C
+        </p>
+        <p className="font__medium">
+          {currentWeatherData.weather[0].description}
+        </p>
+        <p className="font__sm">
+          Updated as of {dateToHourConverter(currentWeatherData.dt)}
+        </p>
       </Card>
       <Card className={styles["df__middle"]}>
         <div>
           <p className="font__sm text__align--right">
-            <span className="font__sm">Feels Like</span> 38°
+            <span className="font__sm">Feels Like </span>
+            {typeof currentWeatherData["feels_like"] === 'number' ? Math.round(currentWeatherData['feels_like']) : Math.round(currentWeatherData['feels_like'].day) }°C
           </p>
         </div>
         <div>
@@ -32,7 +56,8 @@ const DailyForecast = ({ weatherData }) => {
         </div>
         <div>
           <p>
-            <span className="font__sm">Humidity</span> 71%
+            <span className="font__sm">Humidity</span>{" "}
+            {currentWeatherData.humidity}%
           </p>
         </div>
       </Card>
@@ -40,13 +65,15 @@ const DailyForecast = ({ weatherData }) => {
         <div>
           <p className="font__sm text__align--center">Sunrise</p>
           <p className="text__align--center">
-            <i class="las la-sun"></i> 7:55 AM
+            <i class="las la-sun"></i>{" "}
+            {dateToHourConverter(currentWeatherData.sunrise)}
           </p>
         </div>
         <div>
           <p className="font__sm text__align--center">Sunset</p>
           <p className="text__align--center">
-            <i class="las la-sun"></i> 7:55pm
+            <i class="las la-sun"></i>{" "}
+            {dateToHourConverter(currentWeatherData.sunset)}
           </p>
         </div>
         <div>
@@ -62,7 +89,9 @@ const DailyForecast = ({ weatherData }) => {
           </p>
         </div>
       </Card>
-      <HourlyForecast />
+      <Card className={styles["hw__wrapper"]}>
+        <HourlyForecast hourlyWeatherData={hourlyWeatherData} />
+      </Card>
     </Card>
   );
 };

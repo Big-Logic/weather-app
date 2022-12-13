@@ -1,15 +1,21 @@
 .df__wrapper {
   position: relative;
-  padding-top: 5rem;
+  padding-top: 2rem;
 }
 
 .df__main--icon-wrapper {
   position: absolute;
   top: 0;
   left: 50%;
-  width: 10rem;
-  height: 10rem;
+  width: 15rem;
+  height: 15rem;
   transform: translate(-50%, -65%);
+}
+
+.day__wrapper {
+  position: absolute;
+  top: 1%;
+  left: 2%;
 }
 
 .df__main--icon {
@@ -44,4 +50,8 @@
 
 .df__bottom > div {
   margin: 1rem;
+}
+
+.hw__wrapper {
+  width: 100%;
 }

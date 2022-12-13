@@ -30,3 +30,7 @@
 .background__tin {
   background-color: #6a6385;
 }
+
+.greeting__date--wrapper {
+  margin-bottom: 3rem;
+}

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "./App.module.css";
 
+import { getData } from "../../model/model";
+
 import Card from "../UI/Card";
 import UserGreeting from "../UserGreeting/UserGreeting";
 import DateAndTime from "../DateAndTime/DateAndTime";
@@ -15,33 +17,28 @@ function App() {
   const [currentWeatherData, setCurrentWeatherData] = useState({});
   const [hourlyWeatherData, setHourlyWeatherData] = useState({});
   const [dailyWeatherData, setDailyWeatherData] = useState({});
+  const [timezone, setTimezone] = useState('');
 
   const handleAppDisplay = (lat, lon) => {
-    setAppDisplay(true);
     setCors([lat, lon]);
   };
 
-  const getData = async () => {
-    try {
-    const response = await fetch(
-      "https://api.openweathermap.org/data/3.0/onecall?lat=6.3156068&lon=-10.8073698&appid=9bd8c8df77c6408b5eb4858991ede650"
-    );
-    if(response.ok) {
-     const data = await response.json();
-     setCurrentWeatherData(data.current);
-     setHourlyWeatherData(data.hourly);
-     setDailyWeatherData(data.daily);
-     console.log(data);
-    }
-      } catch (err) {
-        console.log(err.message);
-      }
+  const updateWeatherData = async (dataFn) => {
+    
+    const { current, daily, hourly, timezone } = await dataFn(cors);
+    // console.log(current, daily[0, 4], hourly, timezone);
+      setCurrentWeatherData(current);
+      setHourlyWeatherData(hourly.slice(1, 8));
+      setDailyWeatherData(daily.slice(0, 5));
+      setTimezone(timezone);
+      setAppDisplay(true);
+  }
 
-  };
+  
 
   useEffect(() => {
     if(cors) {
-      // getData();
+    updateWeatherData(getData);
     }
   }, [cors]);
   return (
@@ -56,16 +53,16 @@ function App() {
           <Card className={styles.app}>
             <Card className={styles["grid__two--cols-6040"]}>
               <Card>
-                <Card className={styles["grid__two--cols"]}>
+                <Card className={`${styles["grid__two--cols"]} ${styles['greeting__date--wrapper']}`}>
                   <UserGreeting activeUser={activeUser} />
                   <DateAndTime />
                 </Card>
                 <Card className={styles["background__tin"]}>
-                  <DailyForecast />
+                  <DailyForecast currentWeatherData={currentWeatherData} hourlyWeatherData={hourlyWeatherData} timezone={timezone} />
                 </Card>
               </Card>
               <Card className={styles["background__tin"]}>
-                <WeeklyForecast />
+                <WeeklyForecast dailyWeatherData={dailyWeatherData} setCurrentWeatherData={setCurrentWeatherData} />
               </Card>
             </Card>
           </Card>
