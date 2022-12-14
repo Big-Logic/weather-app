@@ -2,135 +2,17 @@ import React, { useEffect, useState } from "react";
 
 import Card from "../UI/Card";
 
+import { getFullReadableDate } from "../../helpers/helpers";
+
 import styles from "./DateAndTime.module.css";
 
-const DateAndTime = (props) => {
-  const setTime = () => {
-    const hours = new Date().getHours();
-    const minutes = new Date().getMinutes();
-    const seconds = new Date().getSeconds();
-    const day = new Date().getDay();
-    const month = new Date().getMonth();
-    const date = new Date().getDate();
-    const year = new Date().getFullYear();
-
-    let dayString = ''
-
-    switch (day) {
-      case 0:
-        dayString = 'Sunday'
-        break;
-      case 1:
-        dayString = 'Monday'
-        break;
-      case 2:
-        dayString = "Tuesday"
-        break;
-      case 3:
-        dayString = "Wednesday"
-        break;
-      case 4:
-        dayString = "Thursday"
-        break;
-      case 5:
-        dayString = "Friday"
-        break;
-      case 6:
-        dayString = "Saturday"
-        break;
-    }
-
-    let monthString = '';
-
-    switch (month) {
-      case 0:
-        monthString = "Jan.";
-        break;
-      case 1:
-        monthString = "Feb.";
-        break;
-      case 2:
-        monthString = "Mar.";
-        break;
-      case 3:
-        monthString = "Apr.";
-        break;
-      case 4:
-        monthString = "May.";
-        break;
-      case 5:
-        monthString = "Jun.";
-        break;
-      case 6:
-        monthString = "Jul.";
-        break;
-      case 7:
-        monthString = "Aug.";
-        break;
-      case 8:
-        monthString = "Sept.";
-        break;
-      case 9:
-        monthString = "Oct.";
-        break;
-      case 10:
-        monthString = "Nov.";
-        break;
-      case 11:
-        monthString = "Dec.";
-        break;
-    }
-    // :${
-    //   seconds < 10 ? "0" + seconds : seconds
-    // } 
-    let readableHour;
-    switch (hours) {
-      case 13:
-        readableHour = 1;
-        break;
-      case 14:
-        readableHour = 2;
-        break;
-      case 15:
-        readableHour = 3;
-        break;
-      case 16:
-        readableHour = 4;
-        break;
-      case 17:
-        readableHour = 5;
-        break;
-      case 18:
-        readableHour = 6;
-        break;
-      case 19:
-        readableHour = 7;
-        break;
-      case 20:
-        readableHour = 8;
-        break;
-      case 21:
-        readableHour = 9;
-        break;
-      case 22:
-        readableHour = 10;
-        break;
-      case 23:
-        readableHour = 11;
-        break;
-      case 0:
-        readableHour = 12;
-        break;
-      default:
-        readableHour = hour;
-    }
-    return {timeStr: `${readableHour}:${minutes < 10 ? "0" + minutes : minutes} ${hours < 12 ? "AM" : "PM"}`, dateStr: `${dayString} ${monthString} ${date}, ${year}`};
-  };
-  const [newTime, setNewTime] = useState(setTime());
+const DateAndTime = () => {
+  
+  const [newTime, setNewTime] = useState(getFullReadableDate());
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setNewTime(setTime());
+      setNewTime(getFullReadableDate());
     }, 1000);
 
     return () => {

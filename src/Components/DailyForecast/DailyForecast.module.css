@@ -3,55 +3,6 @@
   padding-top: 2rem;
 }
 
-.df__main--icon-wrapper {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 15rem;
-  height: 15rem;
-  transform: translate(-50%, -65%);
-}
-
-.day__wrapper {
-  position: absolute;
-  top: 1%;
-  left: 2%;
-}
-
-.df__main--icon {
-  width: 100%;
-}
-
-.df__top {
-  text-align: center;
-}
-
-.df__top--degree {
-  font-size: 7rem;
-}
-
-.df__middle {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1rem;
-  padding: 1rem;
-}
-
-.df__bottom {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-}
-
-/* .df__middle > div,
-.df__bottom > div{
-  padding: 1.5rem 0.5rem;
-} */
-
-.df__bottom > div {
-  margin: 1rem;
-}
-
 .hw__wrapper {
   width: 100%;
 }
