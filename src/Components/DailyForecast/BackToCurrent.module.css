@@ -1,0 +1,9 @@
+.back__to--current-btn {
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    padding: 1rem;
+    background-color: #7d7795;
+    border-radius: 10px;
+    width: unset;
+}

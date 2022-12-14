@@ -1,7 +1,7 @@
 .hourly__forecast--wrapper {
     background-color: #29243e;
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(6, 1fr);
     gap: 1fr;
 }
 

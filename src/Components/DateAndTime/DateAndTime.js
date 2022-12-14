@@ -83,7 +83,48 @@ const DateAndTime = (props) => {
     // :${
     //   seconds < 10 ? "0" + seconds : seconds
     // } 
-    return {timeStr: `${hours}:${minutes < 10 ? "0" + minutes : minutes} ${hours < 12 ? "AM" : "PM"}`, dateStr: `${dayString} ${monthString} ${date}, ${year}`};
+    let readableHour;
+    switch (hours) {
+      case 13:
+        readableHour = 1;
+        break;
+      case 14:
+        readableHour = 2;
+        break;
+      case 15:
+        readableHour = 3;
+        break;
+      case 16:
+        readableHour = 4;
+        break;
+      case 17:
+        readableHour = 5;
+        break;
+      case 18:
+        readableHour = 6;
+        break;
+      case 19:
+        readableHour = 7;
+        break;
+      case 20:
+        readableHour = 8;
+        break;
+      case 21:
+        readableHour = 9;
+        break;
+      case 22:
+        readableHour = 10;
+        break;
+      case 23:
+        readableHour = 11;
+        break;
+      case 0:
+        readableHour = 12;
+        break;
+      default:
+        readableHour = hour;
+    }
+    return {timeStr: `${readableHour}:${minutes < 10 ? "0" + minutes : minutes} ${hours < 12 ? "AM" : "PM"}`, dateStr: `${dayString} ${monthString} ${date}, ${year}`};
   };
   const [newTime, setNewTime] = useState(setTime());
 

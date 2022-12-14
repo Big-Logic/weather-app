@@ -15,9 +15,11 @@ function App() {
   const [activeUser, setActiveUser] = useState("");
   const [cors, setCors] = useState(null);
   const [currentWeatherData, setCurrentWeatherData] = useState({});
+  const [currentWeatherDataStable, setCurrentWeatherDataStable] = useState({});
   const [hourlyWeatherData, setHourlyWeatherData] = useState({});
   const [dailyWeatherData, setDailyWeatherData] = useState({});
   const [timezone, setTimezone] = useState('');
+  const [backToCurrentShow, setBackToCurrentShow] = useState(false);
 
   const handleAppDisplay = (lat, lon) => {
     setCors([lat, lon]);
@@ -28,7 +30,8 @@ function App() {
     const { current, daily, hourly, timezone } = await dataFn(cors);
     // console.log(current, daily[0, 4], hourly, timezone);
       setCurrentWeatherData(current);
-      setHourlyWeatherData(hourly.slice(1, 8));
+      setCurrentWeatherDataStable(current);
+      setHourlyWeatherData(hourly.slice(1, 7));
       setDailyWeatherData(daily.slice(0, 5));
       setTimezone(timezone);
       setAppDisplay(true);
@@ -41,6 +44,7 @@ function App() {
     updateWeatherData(getData);
     }
   }, [cors]);
+
   return (
     <>
       {!appDisplay ? (
@@ -58,11 +62,11 @@ function App() {
                   <DateAndTime />
                 </Card>
                 <Card className={styles["background__tin"]}>
-                  <DailyForecast currentWeatherData={currentWeatherData} hourlyWeatherData={hourlyWeatherData} timezone={timezone} />
+                  <DailyForecast currentWeatherData={currentWeatherData} setCurrentWeatherData={setCurrentWeatherData} hourlyWeatherData={hourlyWeatherData} timezone={timezone} backToCurrentShow={backToCurrentShow} currentWeatherDataStable={currentWeatherDataStable} setBackToCurrentShow={setBackToCurrentShow}/>
                 </Card>
               </Card>
               <Card className={styles["background__tin"]}>
-                <WeeklyForecast dailyWeatherData={dailyWeatherData} setCurrentWeatherData={setCurrentWeatherData} />
+                <WeeklyForecast dailyWeatherData={dailyWeatherData} setCurrentWeatherData={setCurrentWeatherData} setBackToCurrentShow={setBackToCurrentShow} />
               </Card>
             </Card>
           </Card>

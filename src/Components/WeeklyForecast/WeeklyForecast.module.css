@@ -36,3 +36,7 @@
 .weekly__icon--box img {
   width: 100%;
 }
+
+.weekly__btn--with-bg {
+  background-color: blueviolet;
+}

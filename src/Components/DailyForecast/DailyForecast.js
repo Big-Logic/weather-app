@@ -4,13 +4,14 @@ import Card from "../UI/Card";
 
 import HourlyForecast from "../HourlyForecast/HourlyForecast";
 
+import BackToCurrent from "./BackToCurrent";
+
 import styles from "./DailyForecast.module.css";
 
-import cloudy from "./cloudy.png";
 import { getIcon, dateToHourConverter, dateToDayConverter } from "../../helpers/helpers";
 
-const DailyForecast = ({ currentWeatherData, hourlyWeatherData, timezone }) => {
-  console.log(currentWeatherData)
+const DailyForecast = ({ currentWeatherData, hourlyWeatherData, timezone, backToCurrentShow, setCurrentWeatherData, currentWeatherDataStable, setBackToCurrentShow}) => {
+  
   return (
     <Card className={styles["df__wrapper"]}>
       <Card className={styles["df__main--icon-wrapper"]}>
@@ -23,6 +24,7 @@ const DailyForecast = ({ currentWeatherData, hourlyWeatherData, timezone }) => {
       <Card className={styles["day__wrapper"]}>
         <p>{dateToDayConverter(currentWeatherData.dt)}</p>
       </Card>
+      {backToCurrentShow && <BackToCurrent currentWeatherDataStable={currentWeatherDataStable} setCurrentWeatherData={setCurrentWeatherData} setBackToCurrentShow={setBackToCurrentShow} />}
       <Card className={styles["df__top"]}>
         <p className="font__medium">{timezone}</p>
         <p className={styles["df__top--degree"]}>
@@ -92,7 +94,8 @@ const DailyForecast = ({ currentWeatherData, hourlyWeatherData, timezone }) => {
           <div>
             <p className="font__sm">Moonset</p>
             <p>
-              <i class="las la-cloud-moon"></i> {dateToHourConverter(currentWeatherData.moonset)}
+              <i class="las la-cloud-moon"></i>{" "}
+              {dateToHourConverter(currentWeatherData.moonset)}
             </p>
           </div>
         )}
