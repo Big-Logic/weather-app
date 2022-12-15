@@ -9,9 +9,11 @@ import DateAndTime from "../DateAndTime/DateAndTime";
 import DailyForecast from "../DailyForecast/DailyForecast";
 import WeeklyForecast from "../WeeklyForecast/WeeklyForecast";
 import InfoCollection from "../InfoCollection/InfoCollection";
+import LocationSearch from "../LocationSearch/LocationSearch";
 
 function App() {
   const [appDisplay, setAppDisplay] = useState(false);
+  const [searchFormDisplay, setSearchFormDisplay] = useState(false);
   const [activeUser, setActiveUser] = useState("");
   const [cors, setCors] = useState(null);
   const [currentWeatherData, setCurrentWeatherData] = useState({});
@@ -20,6 +22,7 @@ function App() {
   const [dailyWeatherData, setDailyWeatherData] = useState({});
   const [timezone, setTimezone] = useState('');
   const [backToCurrentShow, setBackToCurrentShow] = useState(false);
+  const [currentWeatherWeekDays, setCurrentWeatherWeekDays] = useState('Current Weather');
 
   const handleAppDisplay = (lat, lon) => {
     setCors([lat, lon]);
@@ -57,19 +60,38 @@ function App() {
           <Card className={styles.app}>
             <Card className={styles["grid__two--cols-6040"]}>
               <Card>
-                <Card className={`${styles["grid__two--cols"]} ${styles['greeting__date--wrapper']}`}>
+                <Card
+                  className={`${styles["grid__two--cols"]} ${styles["greeting__date--wrapper"]}`}
+                >
                   <UserGreeting activeUser={activeUser} />
                   <DateAndTime />
                 </Card>
                 <Card className={styles["background__tin"]}>
-                  <DailyForecast currentWeatherData={currentWeatherData} setCurrentWeatherData={setCurrentWeatherData} hourlyWeatherData={hourlyWeatherData} timezone={timezone} backToCurrentShow={backToCurrentShow} currentWeatherDataStable={currentWeatherDataStable} setBackToCurrentShow={setBackToCurrentShow}/>
+                  <DailyForecast
+                    currentWeatherData={currentWeatherData}
+                    setCurrentWeatherData={setCurrentWeatherData}
+                    hourlyWeatherData={hourlyWeatherData}
+                    timezone={timezone}
+                    backToCurrentShow={backToCurrentShow}
+                    currentWeatherDataStable={currentWeatherDataStable}
+                    setBackToCurrentShow={setBackToCurrentShow}
+                    currentWeatherWeekDays={currentWeatherWeekDays}
+                    setCurrentWeatherWeekDays={setCurrentWeatherWeekDays}
+                  />
                 </Card>
               </Card>
               <Card className={styles["background__tin"]}>
-                <WeeklyForecast dailyWeatherData={dailyWeatherData} setCurrentWeatherData={setCurrentWeatherData} setBackToCurrentShow={setBackToCurrentShow} />
+                <WeeklyForecast
+                  dailyWeatherData={dailyWeatherData}
+                  setCurrentWeatherData={setCurrentWeatherData}
+                  setBackToCurrentShow={setBackToCurrentShow}
+                  setCurrentWeatherWeekDays={setCurrentWeatherWeekDays}
+                  setSearchFormDisplay={setSearchFormDisplay}
+                />
               </Card>
             </Card>
           </Card>
+          {searchFormDisplay && <LocationSearch setSearchFormDisplay={setSearchFormDisplay} />}
         </div>
       )}
     </>

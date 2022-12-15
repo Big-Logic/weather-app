@@ -6,6 +6,7 @@ import Form from "./Form";
 const InfoCollection = (props) => {
   const [findLocation, setFindLocation] = useState(false);
   const [userStr, setUserStr] = useState("");
+  const [displayErrorComponent, setDisplayErrorComponent] = useState(false);
   function success(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
@@ -14,7 +15,7 @@ const InfoCollection = (props) => {
   }
 
   function error() {
-    alert("Unable to retrieve your location");
+    setDisplayErrorComponent(true);
   }
 
   useEffect(() => {
@@ -37,6 +38,7 @@ const InfoCollection = (props) => {
       handleSubmit={handleSubmit}
       userStr={userStr}
       setUserStr={setUserStr}
+      displayErrorComponent={displayErrorComponent}
     />
   );
 };

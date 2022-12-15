@@ -6,26 +6,21 @@ import { dateToHourConverter } from "../../helpers/helpers";
 
 import styles from "./WeatherForecast.module.css";
 
-const WeatherForecast = ({currentWeatherData, timezone}) => {
+const WeatherForecast = ({currentWeatherData, timezone, currentWeatherDataStable}) => {
     return (
       <>
         <Card className={styles["df__top"]}>
           <p className="font__medium">{timezone}</p>
           <p className={styles["df__top--degree"]}>
             {typeof currentWeatherData.temp === "number"
-              ? currentWeatherData.temp < 1
-                ? "0"
-                : Math.round(currentWeatherData.temp)
-              : currentWeatherData.temp.day < 1
-              ? "0"
-              : Math.round(currentWeatherData.temp.day)}
+              ? Math.round(currentWeatherData.temp) : Math.round(currentWeatherData.temp.day)}
             °C
           </p>
           <p className="font__medium">
             {currentWeatherData.weather[0].description}
           </p>
           <p className="font__sm">
-            Updated as of {dateToHourConverter(currentWeatherData.dt)}
+            Updated as of {dateToHourConverter(currentWeatherDataStable.dt)}
           </p>
         </Card>
         <Card className={styles["df__middle"]}>

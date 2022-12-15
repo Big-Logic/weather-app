@@ -13,6 +13,8 @@ export const dateToHourConverter = function (secs) {
   const hour = date.getHours();
   const minute = date.getMinutes();
 
+  console.log(date)
+
   let readableHour;
   switch(hour) {
     case 13:

@@ -22,21 +22,25 @@ const DailyForecast = ({
   setCurrentWeatherData,
   currentWeatherDataStable,
   setBackToCurrentShow,
+  currentWeatherWeekDays,
+  setCurrentWeatherWeekDays
 }) => {
   return (
     <Card className={styles["df__wrapper"]}>
       <MainIconBox iconSrc={currentWeatherData.weather[0].icon} />
-      <WeekDays weekDay={currentWeatherData.dt} />
+      <WeekDays weekDay={currentWeatherData.dt} currentWeatherWeekDays={currentWeatherWeekDays}/>
       {backToCurrentShow && (
         <BackToCurrent
           currentWeatherDataStable={currentWeatherDataStable}
           setCurrentWeatherData={setCurrentWeatherData}
           setBackToCurrentShow={setBackToCurrentShow}
+          setCurrentWeatherWeekDays={setCurrentWeatherWeekDays}
         />
       )}
       <WeatherForecast
         currentWeatherData={currentWeatherData}
         timezone={timezone}
+        currentWeatherDataStable={currentWeatherDataStable}
       />
       <Card className={styles["hw__wrapper"]}>
         <HourlyForecast hourlyWeatherData={hourlyWeatherData} />

@@ -6,10 +6,11 @@ import { dateToDayConverter } from "../../helpers/helpers";
 
 import styles from "./WeekDays.module.css"
 
-const WeekDays = ({weekDay}) => {
+const WeekDays = ({weekDay, currentWeatherWeekDays}) => {
     return (
       <Card className={styles["day__wrapper"]}>
-        <p>{dateToDayConverter(weekDay)}</p>
+        <p>{currentWeatherWeekDays}</p>
+        {/* <p>{dateToDayConverter(weekDay)}</p> */}
       </Card>
     );
 }
