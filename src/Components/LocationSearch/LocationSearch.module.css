@@ -99,3 +99,7 @@
   background-color: #29243e;
   text-align: center;
 }
+
+.location__search--error {
+  padding: 0 3rem;
+}

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Form from "./Form";
 
 
-const InfoCollection = (props) => {
+const InfoCollection = ({handleAppDisplay, setActiveUser}) => {
   const [findLocation, setFindLocation] = useState(false);
   const [userStr, setUserStr] = useState("");
   const [displayErrorComponent, setDisplayErrorComponent] = useState(false);
@@ -11,7 +11,7 @@ const InfoCollection = (props) => {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
     console.log(latitude, longitude);
-    props.handleAppDisplay(latitude, longitude);
+    handleAppDisplay(latitude, longitude);
   }
 
   function error() {
@@ -31,7 +31,7 @@ const InfoCollection = (props) => {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     setFindLocation(true);
-    props.setActiveUser(userStr);
+    setActiveUser(userStr);
   };
   return (
     <Form
@@ -39,6 +39,7 @@ const InfoCollection = (props) => {
       userStr={userStr}
       setUserStr={setUserStr}
       displayErrorComponent={displayErrorComponent}
+      handleAppDisplay={handleAppDisplay}
     />
   );
 };

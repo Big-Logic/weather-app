@@ -4,7 +4,10 @@ import Card from "../UI/Card";
 
 import styles from "./Form.module.css";
 
-const Form = ({ handleSubmit, userStr, setUserStr, displayErrorComponent }) => {
+const Form = ({ handleSubmit, userStr, setUserStr, displayErrorComponent, handleAppDisplay }) => {
+  const handleClick = () => {
+    handleAppDisplay(6.3156068, -10.8073698);
+  }
   return (
     <div className={styles["info__collection--wrapper"]}>
       <Card className={styles["info__collection"]}>
@@ -20,7 +23,7 @@ const Form = ({ handleSubmit, userStr, setUserStr, displayErrorComponent }) => {
             <p>3. Reload the app</p>
 
              <p>Click continue if you wish to use this app without location access</p>
-             <button className={`${styles["continue__toapp--btn"]} btn__unset`}>Continue</button>
+             <button className={`${styles["continue__toapp--btn"]} btn__unset`} onClick={handleClick}>Continue</button>
           </div>
         ) : (
           <form

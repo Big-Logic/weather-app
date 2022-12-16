@@ -1,4 +1,9 @@
-import { WEATHER_API_ENDPOINT, WEATHER_API_KEY, CITIES_LIST_API_ENDPOINT, CITIES_LIST_API_KEY } from "./constants";
+import {
+  WEATHER_API_ENDPOINT,
+  WEATHER_API_KEY,
+  CITIES_LIST_API_ENDPOINT,
+  CITIES_LIST_API_KEY,
+} from "./constants";
 
 export const getData = async ([lat, lon]) => {
   try {
@@ -11,7 +16,7 @@ export const getData = async ([lat, lon]) => {
       return data;
     }
   } catch (err) {
-    console.log(err.message);
+    throw new Error(err.message);
   }
 };
 
@@ -34,6 +39,6 @@ export const getCities = async (value) => {
       return data;
     }
   } catch (err) {
-    console.log(err.message);
+    throw new Error(err.message);
   }
 };

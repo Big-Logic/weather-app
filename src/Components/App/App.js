@@ -20,31 +20,36 @@ function App() {
   const [currentWeatherDataStable, setCurrentWeatherDataStable] = useState({});
   const [hourlyWeatherData, setHourlyWeatherData] = useState({});
   const [dailyWeatherData, setDailyWeatherData] = useState({});
-  const [timezone, setTimezone] = useState('');
+  const [timezone, setTimezone] = useState("");
   const [backToCurrentShow, setBackToCurrentShow] = useState(false);
-  const [currentWeatherWeekDays, setCurrentWeatherWeekDays] = useState('Current Weather');
+  const [currentWeatherWeekDays, setCurrentWeatherWeekDays] =
+    useState("Current Weather");
+  const [dataLoadControl, setDataLoadControl] = useState("notloaded");
 
   const handleAppDisplay = (lat, lon) => {
     setCors([lat, lon]);
   };
 
   const updateWeatherData = async (dataFn) => {
-    
-    const { current, daily, hourly, timezone } = await dataFn(cors);
-    // console.log(current, daily[0, 4], hourly, timezone);
+    try {
+      setAppDisplay(true);
+      setSearchFormDisplay(false);
+      setDataLoadControl("notloaded");
+      const { current, daily, hourly, timezone } = await dataFn(cors);
       setCurrentWeatherData(current);
       setCurrentWeatherDataStable(current);
       setHourlyWeatherData(hourly.slice(1, 7));
       setDailyWeatherData(daily.slice(0, 5));
       setTimezone(timezone);
-      setAppDisplay(true);
-  }
-
-  
+      setDataLoadControl("loaded");
+    } catch (err) {
+      setDataLoadControl("error");
+    }
+  };
 
   useEffect(() => {
-    if(cors) {
-    updateWeatherData(getData);
+    if (cors) {
+      updateWeatherData(getData);
     }
   }, [cors]);
 
@@ -57,41 +62,62 @@ function App() {
         />
       ) : (
         <div className={styles["app__wrapper"]}>
-          <Card className={styles.app}>
-            <Card className={styles["grid__two--cols-6040"]}>
-              <Card>
-                <Card
-                  className={`${styles["grid__two--cols"]} ${styles["greeting__date--wrapper"]}`}
-                >
-                  <UserGreeting activeUser={activeUser} />
-                  <DateAndTime />
-                </Card>
-                <Card className={styles["background__tin"]}>
-                  <DailyForecast
-                    currentWeatherData={currentWeatherData}
-                    setCurrentWeatherData={setCurrentWeatherData}
-                    hourlyWeatherData={hourlyWeatherData}
-                    timezone={timezone}
-                    backToCurrentShow={backToCurrentShow}
-                    currentWeatherDataStable={currentWeatherDataStable}
-                    setBackToCurrentShow={setBackToCurrentShow}
-                    currentWeatherWeekDays={currentWeatherWeekDays}
-                    setCurrentWeatherWeekDays={setCurrentWeatherWeekDays}
-                  />
+          {dataLoadControl === "notloaded" ? (
+            <div class={styles["lds-ellipsis"]}>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          ) : dataLoadControl === "loaded" ? (
+            <>
+              <Card className={styles.app}>
+                <Card className={styles["grid__two--cols-6040"]}>
+                  <Card>
+                    <Card
+                      className={`${styles["grid__two--cols"]} ${styles["greeting__date--wrapper"]}`}
+                    >
+                      <UserGreeting activeUser={activeUser} />
+                      <DateAndTime />
+                    </Card>
+                    <Card className={styles["background__tin"]}>
+                      <DailyForecast
+                        currentWeatherData={currentWeatherData}
+                        setCurrentWeatherData={setCurrentWeatherData}
+                        hourlyWeatherData={hourlyWeatherData}
+                        timezone={timezone}
+                        backToCurrentShow={backToCurrentShow}
+                        currentWeatherDataStable={currentWeatherDataStable}
+                        setBackToCurrentShow={setBackToCurrentShow}
+                        currentWeatherWeekDays={currentWeatherWeekDays}
+                        setCurrentWeatherWeekDays={setCurrentWeatherWeekDays}
+                      />
+                    </Card>
+                  </Card>
+                  <Card className={styles["background__tin"]}>
+                    <WeeklyForecast
+                      dailyWeatherData={dailyWeatherData}
+                      setCurrentWeatherData={setCurrentWeatherData}
+                      setBackToCurrentShow={setBackToCurrentShow}
+                      setCurrentWeatherWeekDays={setCurrentWeatherWeekDays}
+                      setSearchFormDisplay={setSearchFormDisplay}
+                    />
+                  </Card>
                 </Card>
               </Card>
-              <Card className={styles["background__tin"]}>
-                <WeeklyForecast
-                  dailyWeatherData={dailyWeatherData}
-                  setCurrentWeatherData={setCurrentWeatherData}
-                  setBackToCurrentShow={setBackToCurrentShow}
-                  setCurrentWeatherWeekDays={setCurrentWeatherWeekDays}
-                  setSearchFormDisplay={setSearchFormDisplay}
-                />
-              </Card>
-            </Card>
-          </Card>
-          {searchFormDisplay && <LocationSearch setSearchFormDisplay={setSearchFormDisplay} />}
+            </>
+          ) : (
+            <p className="error__msg">
+              *An Error occurred!! Please make you are connected to the internet
+              and try again!!
+            </p>
+          )}
+          {searchFormDisplay && (
+            <LocationSearch
+              setSearchFormDisplay={setSearchFormDisplay}
+              handleAppDisplay={handleAppDisplay}
+            />
+          )}
         </div>
       )}
     </>

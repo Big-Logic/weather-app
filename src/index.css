@@ -70,3 +70,7 @@ button {
   color: inherit;
   text-align: unset;
 }
+
+.error__msg {
+  color: #ffbcbc;
+}
