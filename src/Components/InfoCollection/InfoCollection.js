@@ -2,11 +2,14 @@ import React, { useEffect, useState } from "react";
 
 import Form from "./Form";
 
+import isAlpha from "validator/lib/isAlpha";
+
 
 const InfoCollection = ({handleAppDisplay, setActiveUser}) => {
   const [findLocation, setFindLocation] = useState(false);
   const [userStr, setUserStr] = useState("");
   const [displayErrorComponent, setDisplayErrorComponent] = useState(false);
+  const [inputValidator, setInputValidator] = useState(true);
   function success(position) {
     const latitude = position.coords.latitude;
     const longitude = position.coords.longitude;
@@ -30,8 +33,14 @@ const InfoCollection = ({handleAppDisplay, setActiveUser}) => {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    setFindLocation(true);
-    setActiveUser(userStr);
+    if (isAlpha(userStr))  {
+      setInputValidator(true);
+      setFindLocation(true);
+      setActiveUser(userStr);
+    }  else {
+      setInputValidator(false);
+    }
+    console.log(isAlpha(userStr));
   };
   return (
     <Form
@@ -40,6 +49,7 @@ const InfoCollection = ({handleAppDisplay, setActiveUser}) => {
       setUserStr={setUserStr}
       displayErrorComponent={displayErrorComponent}
       handleAppDisplay={handleAppDisplay}
+      inputValidator={inputValidator}
     />
   );
 };

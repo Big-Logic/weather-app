@@ -110,6 +110,7 @@ const LocationSearch = ({ setSearchFormDisplay, handleAppDisplay }) => {
                   placeholder="Search Cities"
                   value={inputValue}
                   onChange={handleChange}
+                  required
                 />
               </label>
             </div>

@@ -4,10 +4,17 @@ import Card from "../UI/Card";
 
 import styles from "./Form.module.css";
 
-const Form = ({ handleSubmit, userStr, setUserStr, displayErrorComponent, handleAppDisplay }) => {
+const Form = ({
+  handleSubmit,
+  userStr,
+  setUserStr,
+  displayErrorComponent,
+  handleAppDisplay,
+  inputValidator,
+}) => {
   const handleClick = () => {
     handleAppDisplay(6.3156068, -10.8073698);
-  }
+  };
   return (
     <div className={styles["info__collection--wrapper"]}>
       <Card className={styles["info__collection"]}>
@@ -22,8 +29,15 @@ const Form = ({ handleSubmit, userStr, setUserStr, displayErrorComponent, handle
             <p>2. Give this app acces to your location.</p>
             <p>3. Reload the app</p>
 
-             <p>Click continue if you wish to use this app without location access</p>
-             <button className={`${styles["continue__toapp--btn"]} btn__unset`} onClick={handleClick}>Continue</button>
+            <p>
+              Click continue if you wish to use this app without location access
+            </p>
+            <button
+              className={`${styles["continue__toapp--btn"]} btn__unset`}
+              onClick={handleClick}
+            >
+              Continue
+            </button>
           </div>
         ) : (
           <form
@@ -41,6 +55,12 @@ const Form = ({ handleSubmit, userStr, setUserStr, displayErrorComponent, handle
                 required
               />
             </label>
+            {!inputValidator && (
+              <p className="error__msg">
+                *Yourself know la your name supposed to contain only letters
+                bah!! Stop trying to mix the tin with numbers and symbols bah!!
+              </p>
+            )}
             <p className={styles["warning__msg"]}>
               * Please note that submitting this form will create a popup to
               allow location access. Make sure you click Allow to avoid improper
